@@ -1,12 +1,15 @@
 # Mass-Tag-Cell-Assignment
+```python
 from pyopenms import MSExperiment, MzMLFile
 import numpy as np
 import pandas as pd
 import os
-import argparse
 
 # Argument parser for user-defined input
+import argparse
+
 parser = argparse.ArgumentParser(description="Analyze marker intensities in mzML files.")
+
 parser.add_argument("--file_path", required=True, help="Path to the mzML file.")
 parser.add_argument("--save_path", required=True, help="Directory to save results.")
 parser.add_argument("--target_marker", required=True, help="Target marker name.")
@@ -22,6 +25,11 @@ parser.add_argument("--target_sigma", type=float, default=100, help="Intensity t
 parser.add_argument("--excluded_sigma", type=float, default=100, help="Intensity threshold (sigma) for excluded marker detection.")
 
 args = parser.parse_args()
+
+# Compute detection limits
+target_detection_limit = 2 * args.target_sigma
+excluded_detection_limit = 2 * args.excluded_sigma
+
 
 # Compute detection limits
 target_detection_limit = 2 * args.target_sigma
